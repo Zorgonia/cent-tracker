@@ -32,4 +32,7 @@ public class CentStorage {
         }
     }
 
+    public Integer totalCents() {
+        return cents.get(0) * -2 + cents.get(1) * -1 + cents.get(3) + cents.get(4) * 2;
+    }
 }

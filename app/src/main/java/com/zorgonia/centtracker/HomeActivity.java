@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<String> centList;
     CentStorage centStorage;
     ArrayList<TextView> counts;
+    TextView blurb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         counts.add(temp);
         temp = findViewById(R.id.countpt);
         counts.add(temp);
+        blurb = findViewById(R.id.display);
 
         centList = new ArrayList<>();
         centList.add("-2");
@@ -56,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
                         makeInvalidToast(position);
                     }
                 }
-                makeToast(position, centStorage.getElementAt(position));
+                //makeToast(position, centStorage.getElementAt(position));
                 updateText(position);
             }
         });
@@ -87,6 +89,29 @@ public class HomeActivity extends AppCompatActivity {
      */
     public void updateText(int position) {
         counts.get(position).setText(String.format("%s", centStorage.getElementAt(position)));
-
+        int centDiff = centStorage.totalCents();
+        boolean check = false;
+        if (centDiff < 0) {
+            centDiff = -1 * centDiff;
+            check = true;
+        } else if (centDiff == 0) {
+            blurb.setText(R.string.even);
+            return;
+        }
+        int dollars = centDiff / 100;
+        int cents = centDiff % 100;
+        if (check) {
+            if (cents < 10) {
+                blurb.setText(String.format("You've saved $%s.0%s", dollars, cents));
+            } else {
+                blurb.setText(String.format("You've saved $%s.%s", dollars, cents));
+            }
+        } else {
+            if (cents < 10) {
+                blurb.setText(String.format("You've lost $%s.0%s", dollars, cents));
+            } else {
+                blurb.setText(String.format("You've lost $%s.%s", dollars, cents));
+            }
+        }
     }
 }

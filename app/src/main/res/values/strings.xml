@@ -7,4 +7,5 @@
     <string name="neteven">0</string>
     <string name="plusone">+1</string>
     <string name="plustwo">+2</string>
+    <string name="even">You\'ve gone even with +-$0.00</string>
 </resources>
