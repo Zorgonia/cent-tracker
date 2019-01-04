@@ -27,15 +27,15 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerAdapter adapter = new RecyclerAdapter(centList);
         adapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View itemView, int position) {
-                makeToast(position);
+            public void onItemClick(View itemView, int position, int type) {
+                makeToast(position, type);
             }
         });
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void makeToast(int toShow) {
-        Toast.makeText(this, Integer.toString(toShow), Toast.LENGTH_SHORT).show();
+    private void makeToast(int toShow, int type) {
+        Toast.makeText(this, Integer.toString(toShow) + " " +Integer.toString(type), Toast.LENGTH_SHORT).show();
     }
 }

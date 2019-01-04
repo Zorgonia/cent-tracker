@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
      * An interface for the onclick listener that requires the method on item click
      */
     public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
+        void onItemClick(View itemView, int position, int type);
     }
 
     /**
@@ -53,6 +54,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
          * The text view component to use
          */
         TextView myTextView;
+        Button minusButton;
+        Button plusButton;
 
         /**
          * The constructor
@@ -64,19 +67,46 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
             myTextView = view.findViewById(R.id.cents);
             //myTextView.setTextColor(Color.BLACK);
             myTextView.setGravity(Gravity.CENTER);
-            view.setOnClickListener(new View.OnClickListener() {
+            myTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (clickListener != null) {
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
                             //System.out.println(position);
-                            clickListener.onItemClick(view, position);
+                            clickListener.onItemClick(view, position, 0);
                         }
                     }
                 }
             });
 
+            minusButton = view.findViewById(R.id.minus);
+            minusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            //System.out.println(position);
+                            clickListener.onItemClick(view, position, -1);
+                        }
+                    }
+                }
+            });
+
+            plusButton = view.findViewById(R.id.plus);
+            plusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) {
+                        int position = getAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION) {
+                            //System.out.println(position);
+                            clickListener.onItemClick(view, position, 1);
+                        }
+                    }
+                }
+            });
         }
 
         @Override
