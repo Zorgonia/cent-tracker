@@ -13,9 +13,112 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="344dp"
+        android:layout_height="226dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CentRecycler"
+        app:layout_constraintVertical_bias="0.642">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/minustwo"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:text="@string/minustwo"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/minusone"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:text="@string/minusone"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/neteven"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/plusone"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:text="@string/plusone"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/plustwo"
+                android:layout_width="57dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back"
+                android:text="@string/plustwo"
+                android:textAlignment="center" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/countmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/countmo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/countz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/countpo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/countpt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/neteven"
+                android:textAlignment="center" />
+        </TableRow>
+
+    </TableLayout>
 </android.support.constraint.ConstraintLayout>

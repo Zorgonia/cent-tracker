@@ -2,4 +2,9 @@
     <string name="app_name">CentTracker</string>
     <string name="minus">-</string>
     <string name="plus">+</string>
+    <string name="minustwo">-2</string>
+    <string name="minusone">-1</string>
+    <string name="neteven">0</string>
+    <string name="plusone">+1</string>
+    <string name="plustwo">+2</string>
 </resources>
