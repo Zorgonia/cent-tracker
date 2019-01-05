@@ -1,8 +1,9 @@
 package com.zorgonia.centtracker;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CentStorage {
+public class CentStorage implements Serializable {
 
     public void increment(int position) {
         int temp = cents.get(position);

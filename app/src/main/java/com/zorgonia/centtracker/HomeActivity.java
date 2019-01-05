@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -20,12 +26,15 @@ public class HomeActivity extends AppCompatActivity {
     CentStorage centStorage;
     ArrayList<TextView> counts;
     TextView blurb;
+    final String SAVE_FILE_NAME = "centsave.ser";
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         centStorage = new CentStorage();
+        loadFromFile(SAVE_FILE_NAME);
+
 
         counts = new ArrayList<>();
         TextView temp = findViewById(R.id.countmt);
@@ -39,6 +48,8 @@ public class HomeActivity extends AppCompatActivity {
         temp = findViewById(R.id.countpt);
         counts.add(temp);
         blurb = findViewById(R.id.display);
+
+        resetDisplay();
 
         centList = new ArrayList<>();
         centList.add("-2");
@@ -59,7 +70,8 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
                 //makeToast(position, centStorage.getElementAt(position));
-                updateText(position);
+                resetDisplay();
+                saveToFile(SAVE_FILE_NAME);
             }
         });
         rv.setAdapter(adapter);
@@ -68,8 +80,9 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * Make a toast saying there's count count at position position
+     *
      * @param position the position to say
-     * @param count the count at said position
+     * @param count    the count at said position
      */
     private void makeToast(int position, int count) {
         Toast.makeText(this, "Position " + Integer.toString(position) + " has a count of " + Integer.toString(count), Toast.LENGTH_SHORT).show();
@@ -77,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * Toast to the user that the count is already 0 at position position
+     *
      * @param position the position which count is 0
      */
     private void makeInvalidToast(int position) {
@@ -85,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
 
     /**
      * Update the text for the chart at position position
+     *
      * @param position the position to update the text at
      */
     public void updateText(int position) {
@@ -112,6 +127,48 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 blurb.setText(String.format("You've lost $%s.%s", dollars, cents));
             }
+        }
+    }
+
+    /**
+     * Saves to a file with name fileName
+     *
+     * @param fileName the file to save to
+     */
+    public void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(centStorage);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    private void loadFromFile(String fileName) {
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                centStorage = (CentStorage) input.readObject();
+                inputStream.close();
+            }
+            //resetDisplay();
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        } finally {
+            Log.e("login activity", centStorage.cents.toString());
+        }
+    }
+
+    private void resetDisplay() {
+        for (int i = 0; i != 5; i++) {
+            updateText(i);
         }
     }
 }
